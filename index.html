@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="pt-BR" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Lucas Almeida · Negócios Imobiliários</title>
+  <meta name="description" content="Projeto demonstrativo: site de corretor de imóveis autônomo em Campinas e região. Dados fictícios.">
+  <meta name="theme-color" content="#f6f4ef">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="home">
+<main>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero__media">
+      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2200&q=80" alt="Residência contemporânea com fachada iluminada ao entardecer (imagem demonstrativa)" fetchpriority="high">
+    </div>
+    <div class="container hero__content">
+      <p class="hero__eyebrow">Compra • Venda • Investimento</p>
+      <h1>Encontre o imóvel certo para o <em>próximo capítulo</em> da sua história.</h1>
+      <p class="hero__sub">Imóveis selecionados em Campinas e região, com atendimento personalizado em cada etapa.</p>
+      <div class="hero__actions">
+        <a class="btn btn--light" href="#buscar">Encontrar meu imóvel</a>
+        <a class="btn btn--outline-light" href="#" data-wa="Olá Lucas, vim pelo seu site e gostaria de falar com você.">Falar com o corretor</a>
+      </div>
+    </div>
+    <span class="hero__credit">Imagem demonstrativa</span>
+  </section>
+
+  <!-- BUSCA -->
+  <div class="container search-wrap" id="buscar">
+    <div class="search">
+      <form id="search-form" role="search" aria-label="Buscar imóveis">
+        <div class="search__top">
+          <h2 class="search__title">Encontre seu próximo imóvel</h2>
+          <div class="segmented" role="radiogroup" aria-label="Finalidade">
+            <label><input type="radio" name="finalidade" value="comprar" checked><span>Comprar</span></label>
+            <label><input type="radio" name="finalidade" value="alugar"><span>Alugar</span></label>
+          </div>
+        </div>
+        <div class="search__grid">
+          <div class="field">
+            <label for="s-tipo">Tipo</label>
+            <select class="select" id="s-tipo" name="tipo">
+              <option value="">Todos</option><option>Casa</option><option>Apartamento</option><option>Terreno</option><option>Comercial</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="s-local">Localização</label>
+            <select class="select" id="s-local" name="local">
+              <option value="">Todas</option><option>Campinas</option><option>Valinhos</option><option>Vinhedo</option><option>Sumaré</option><option>Paulínia</option>
+            </select>
+          </div>
+          <div class="field field--extra">
+            <label for="s-min">Valor mínimo</label>
+            <select class="select" id="s-min" name="min">
+              <option value="">Sem mínimo</option><option value="300000">R$ 300 mil</option><option value="500000">R$ 500 mil</option><option value="750000">R$ 750 mil</option><option value="1000000">R$ 1 milhão</option><option value="1500000">R$ 1,5 milhão</option>
+            </select>
+          </div>
+          <div class="field field--extra">
+            <label for="s-max">Valor máximo</label>
+            <select class="select" id="s-max" name="max">
+              <option value="">Sem máximo</option><option value="500000">R$ 500 mil</option><option value="750000">R$ 750 mil</option><option value="1000000">R$ 1 milhão</option><option value="1500000">R$ 1,5 milhão</option><option value="2000000">R$ 2 milhões</option>
+            </select>
+          </div>
+          <div class="field field--extra field--wide">
+            <label for="s-quartos">Quartos</label>
+            <select class="select" id="s-quartos" name="quartos">
+              <option value="">Qualquer</option><option value="1">1+</option><option value="2">2+</option><option value="3">3+</option><option value="4">4+</option>
+            </select>
+          </div>
+          <button class="btn btn--dark" type="submit">Buscar imóveis</button>
+        </div>
+        <div class="search__foot">
+          <button class="search__more" type="button" aria-expanded="false">Mais filtros</button>
+          <a class="link-arrow" href="imoveis.html">Ver todos os imóveis <span>→</span></a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- DESTAQUES -->
+  <section class="section" id="imoveis">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <span class="chapter">Capítulo 01 · Imóveis</span>
+          <h2>Imóveis em destaque</h2>
+          <p class="lead">Algumas oportunidades selecionadas para você.</p>
+        </div>
+        <a class="link-arrow" href="imoveis.html">Ver todos os imóveis <span>→</span></a>
+      </div>
+      <div class="grid" id="featured-grid"></div>
+      <p class="note">Imóveis, valores e imagens fictícios, usados apenas para demonstração do projeto.</p>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section class="section section--alt" id="sobre">
+    <div class="container about">
+      <div class="about__media reveal">
+        <div class="frame">
+          <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=1000&q=80" alt="Retrato ilustrativo de um corretor de imóveis" loading="lazy">
+        </div>
+        <div class="about__badge"><strong>Lucas Almeida</strong><span>CRECI-SP 123456-F · perfil fictício</span></div>
+      </div>
+      <div class="reveal">
+        <span class="chapter">Capítulo 02 · Sobre</span>
+        <h2>Atendimento próximo, negociação transparente.</h2>
+        <p class="lead">Meu trabalho é entender o que você procura e acompanhar cada etapa da negociação com clareza, agilidade e atenção aos detalhes.</p>
+        <ul class="pillars">
+          <li><span class="n">01</span><div><h3>Atendimento personalizado</h3><p>Cada cliente possui necessidades diferentes.</p></div></li>
+          <li><span class="n">02</span><div><h3>Transparência</h3><p>Informações claras durante todo o processo.</p></div></li>
+          <li><span class="n">03</span><div><h3>Acompanhamento</h3><p>Suporte desde a busca até a conclusão da negociação.</p></div></li>
+        </ul>
+        <a class="btn btn--dark" href="#servicos">Conheça meu trabalho</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVIÇOS -->
+  <section class="section section--dark" id="servicos">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <span class="chapter">Capítulo 03 · Serviços</span>
+          <h2>Como posso ajudar?</h2>
+        </div>
+      </div>
+      <div class="services">
+        <article class="service reveal">
+          <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 15 16 5l12 10M7 13v14h18V13M13 27v-8h6v8"/></svg>
+          <h3>Comprar um imóvel</h3>
+          <p>Encontre oportunidades alinhadas ao seu perfil e orçamento.</p>
+          <a class="link-arrow" href="imoveis.html?finalidade=comprar">Ver imóveis à venda <span>→</span></a>
+        </article>
+        <article class="service reveal">
+          <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 27V11l11-6 11 6v16M5 27h22M11 16h10M11 21h10"/></svg>
+          <h3>Vender seu imóvel</h3>
+          <p>Apresente seu imóvel de forma estratégica e encontre potenciais compradores.</p>
+          <a class="link-arrow" href="#vender">Como funciona <span>→</span></a>
+        </article>
+        <article class="service reveal">
+          <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26h24M7 22l6-7 5 4 8-10M21 9h5v5"/></svg>
+          <h3>Investir em imóveis</h3>
+          <p>Encontre oportunidades para diferentes objetivos de investimento.</p>
+          <a class="link-arrow" href="#" data-wa="Olá Lucas, tenho interesse em investir em imóveis e gostaria de conversar sobre oportunidades.">Conversar sobre investimento <span>→</span></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- VENDER -->
+  <section class="section" id="vender">
+    <div class="container sell">
+      <div class="reveal">
+        <span class="chapter">Capítulo 04 · Vender</span>
+        <h2>Quer vender seu imóvel?</h2>
+        <p class="lead" style="margin-top:20px">Uma apresentação cuidadosa faz diferença. Do preço à negociação, você acompanha cada passo com clareza.</p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#" data-wa="Olá Lucas, gostaria de vender meu imóvel e saber como funciona a avaliação.">Quero vender meu imóvel</a>
+          <a class="btn btn--ghost" href="#contato">Enviar dados do imóvel</a>
+        </div>
+      </div>
+      <ol class="steps reveal">
+        <li><div><strong>Conversa inicial</strong><span>Entendo o imóvel, seus objetivos e o prazo desejado.</span></div></li>
+        <li><div><strong>Análise de mercado</strong><span>Comparação com imóveis semelhantes para definir um preço coerente.</span></div></li>
+        <li><div><strong>Apresentação estratégica</strong><span>Fotos, descrição e divulgação para o público certo.</span></div></li>
+        <li><div><strong>Negociação e fechamento</strong><span>Acompanhamento das propostas até a assinatura.</span></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- REGIÕES -->
+  <section class="section section--tight section--alt" id="regioes">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <span class="chapter">Capítulo 05 · Regiões</span>
+          <h2>Atuação em Campinas e região</h2>
+        </div>
+        <a class="link-arrow" href="imoveis.html">Explorar imóveis <span>→</span></a>
+      </div>
+      <div class="regions" id="regions"></div>
+      <p class="note">Regiões, textos e imagens ilustrativos — conteúdo demonstrativo, sem representar uma área de atuação real.</p>
+    </div>
+  </section>
+
+  <!-- DEPOIMENTOS -->
+  <section class="section" id="depoimentos">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <span class="chapter">Capítulo 06 · Clientes</span>
+          <h2>O que dizem nossos clientes</h2>
+        </div>
+      </div>
+      <div class="quotes">
+        <figure class="quote reveal">
+          <blockquote>“Atendimento muito atencioso e transparente. Durante todo o processo tive suporte para tirar minhas dúvidas.”</blockquote>
+          <figcaption><strong>Mariana Souza</strong><span>Compra de apartamento</span></figcaption>
+        </figure>
+        <figure class="quote reveal">
+          <blockquote>“Consegui encontrar um imóvel que realmente fazia sentido para minha família. Todo o processo foi muito tranquilo.”</blockquote>
+          <figcaption><strong>Rafael Mendes</strong><span>Compra de casa</span></figcaption>
+        </figure>
+        <figure class="quote reveal">
+          <blockquote>“A venda foi conduzida com organização e muita clareza sobre cada proposta recebida.”</blockquote>
+          <figcaption><strong>Carla Nogueira</strong><span>Venda de imóvel</span></figcaption>
+        </figure>
+      </div>
+      <p class="note">Depoimentos demonstrativos para apresentação do projeto.</p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section--tight">
+    <div class="container">
+      <div class="cta reveal">
+        <div>
+          <h2>Está procurando um imóvel?</h2>
+          <p>Conte o que você procura e vamos encontrar oportunidades que façam sentido para você.</p>
+        </div>
+        <div class="cta__actions">
+          <a class="btn btn--light" href="#" data-wa="Olá Lucas, estou procurando um imóvel e gostaria da sua ajuda.">Falar com Lucas</a>
+          <a class="btn btn--outline-light" href="imoveis.html">Ver imóveis</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section class="section" id="contato">
+    <div class="container contact">
+      <div class="reveal">
+        <span class="chapter">Capítulo 07 · Contato</span>
+        <h2>Vamos conversar?</h2>
+        <p class="lead" style="margin-top:20px">Respondo pessoalmente cada mensagem. Escolha o canal que preferir.</p>
+        <ul class="contact-list">
+          <li><a href="#" data-wa="Olá Lucas, vim pelo seu site e gostaria de conversar."><span><small>WhatsApp</small><strong>(19) 99999-1234</strong></span><span class="arr" aria-hidden="true">↗</span></a></li>
+          <li><a href="mailto:contato@lucasalmeidaimoveis.com.br"><span><small>E-mail</small><strong>contato@lucasalmeidaimoveis.com.br</strong></span><span class="arr" aria-hidden="true">↗</span></a></li>
+          <li><a href="https://instagram.com/lucasalmeida.imoveis" target="_blank" rel="noopener"><span><small>Instagram</small><strong>@lucasalmeida.imoveis</strong></span><span class="arr" aria-hidden="true">↗</span></a></li>
+        </ul>
+        <p class="note">Contatos fictícios, apenas para demonstração.</p>
+      </div>
+
+      <form class="form reveal" id="contact-form" novalidate>
+        <div class="field field--full">
+          <label for="c-nome">Nome</label>
+          <input class="input" id="c-nome" name="nome" autocomplete="name" data-required aria-describedby="c-nome-err">
+          <span class="field-error" id="c-nome-err" aria-live="polite"></span>
+        </div>
+        <div class="field">
+          <label for="c-whats">WhatsApp</label>
+          <input class="input" id="c-whats" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="(19) 90000-0000" data-required data-phone aria-describedby="c-whats-err">
+          <span class="field-error" id="c-whats-err" aria-live="polite"></span>
+        </div>
+        <div class="field">
+          <label for="c-email">E-mail</label>
+          <input class="input" id="c-email" name="email" type="email" autocomplete="email" data-required aria-describedby="c-email-err">
+          <span class="field-error" id="c-email-err" aria-live="polite"></span>
+        </div>
+        <fieldset class="chips field--full">
+          <legend>Tenho interesse em</legend>
+          <label class="chip"><input type="radio" name="interesse" value="Comprar" checked><span>Comprar</span></label>
+          <label class="chip"><input type="radio" name="interesse" value="Vender"><span>Vender</span></label>
+          <label class="chip"><input type="radio" name="interesse" value="Alugar"><span>Alugar</span></label>
+          <label class="chip"><input type="radio" name="interesse" value="Investir"><span>Investir</span></label>
+        </fieldset>
+        <div class="field field--full">
+          <label for="c-msg">Mensagem</label>
+          <textarea class="textarea" id="c-msg" name="mensagem" placeholder="Conte um pouco sobre o que você procura"></textarea>
+        </div>
+        <div class="form-success" role="status" hidden></div>
+        <div class="form__foot">
+          <button class="btn btn--primary btn--block" type="submit">Enviar mensagem</button>
+          <p class="form__hint">Ao enviar, sua mensagem é organizada e aberta no WhatsApp. Demonstração: nenhum dado é armazenado.</p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+</main>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

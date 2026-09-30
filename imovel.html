@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt-BR" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Imóvel · Lucas Almeida</title>
+  <meta name="description" content="Projeto demonstrativo: detalhes de imóvel fictício.">
+  <meta name="theme-color" content="#f6f4ef">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="imovel">
+<main id="property"></main>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Galeria de fotos">
+  <div class="lightbox__top"><span data-lb-count></span><button class="icon-btn" type="button" data-lb-close aria-label="Fechar galeria">×</button></div>
+  <div class="lightbox__stage"><img alt=""></div>
+  <button class="lightbox__nav lightbox__nav--prev" type="button" data-lb-prev aria-label="Foto anterior">←</button>
+  <button class="lightbox__nav lightbox__nav--next" type="button" data-lb-next aria-label="Próxima foto">→</button>
+  <div class="lightbox__thumbs"></div>
+</div>
+
+<div class="modal" id="visit-modal" role="dialog" aria-modal="true" aria-labelledby="visit-title">
+  <div class="modal__panel">
+    <button class="icon-btn" type="button" data-modal-close aria-label="Fechar">×</button>
+    <h2 id="visit-title">Agendar visita</h2>
+    <p class="muted" data-visit-title></p>
+    <form class="form" id="visit-form" novalidate>
+      <div class="field field--full">
+        <label for="v-nome">Seu nome</label>
+        <input class="input" id="v-nome" name="nome" autocomplete="name" data-required aria-describedby="v-nome-err">
+        <span class="field-error" id="v-nome-err" aria-live="polite"></span>
+      </div>
+      <div class="field">
+        <label for="v-data">Data sugerida</label>
+        <input class="input" id="v-data" name="data" type="date" data-required aria-describedby="v-data-err">
+        <span class="field-error" id="v-data-err" aria-live="polite"></span>
+      </div>
+      <div class="field">
+        <label for="v-periodo">Período</label>
+        <select class="select" id="v-periodo" name="periodo"><option>Manhã</option><option>Tarde</option><option>Início da noite</option></select>
+      </div>
+      <div class="form__foot">
+        <button class="btn btn--primary btn--block" type="submit">Enviar pedido pelo WhatsApp</button>
+        <p class="form__hint">A confirmação do horário é feita diretamente com o corretor. Demonstração: nenhum dado é armazenado.</p>
+      </div>
+    </form>
+  </div>
+</div>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

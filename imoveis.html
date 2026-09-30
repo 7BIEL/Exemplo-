@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="pt-BR" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Imóveis · Lucas Almeida</title>
+  <meta name="description" content="Projeto demonstrativo: imóveis fictícios à venda em Campinas e região.">
+  <meta name="theme-color" content="#f6f4ef">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="imoveis">
+<main>
+  <div class="container page-head">
+    <span class="chapter">Imóveis disponíveis</span>
+    <h1>Encontre seu próximo imóvel</h1>
+    <p class="lead">Refine a busca por finalidade, tipo, região e valor. Salve seus favoritos para comparar depois.</p>
+  </div>
+  <div class="container listing">
+    <form class="filters" id="filters" aria-label="Filtros de imóveis">
+      <h2>Filtrar</h2>
+      <button class="filters__close" type="button" aria-label="Fechar filtros">×</button>
+      <div class="field">
+        <label for="f-finalidade">Finalidade</label>
+        <select class="select" id="f-finalidade" name="finalidade"><option value="">Todas</option><option value="comprar">Comprar</option><option value="alugar">Alugar</option></select>
+      </div>
+      <div class="field">
+        <label for="f-tipo">Tipo</label>
+        <select class="select" id="f-tipo" name="tipo"><option value="">Todos</option><option>Casa</option><option>Apartamento</option><option>Terreno</option><option>Comercial</option></select>
+      </div>
+      <div class="field">
+        <label for="f-local">Localização</label>
+        <select class="select" id="f-local" name="local"><option value="">Todas</option><option>Campinas</option><option>Valinhos</option><option>Vinhedo</option><option>Sumaré</option><option>Paulínia</option></select>
+      </div>
+      <div class="field">
+        <label for="f-min">Valor mínimo</label>
+        <select class="select" id="f-min" name="min"><option value="">Sem mínimo</option><option value="300000">R$ 300 mil</option><option value="500000">R$ 500 mil</option><option value="750000">R$ 750 mil</option><option value="1000000">R$ 1 milhão</option><option value="1500000">R$ 1,5 milhão</option></select>
+      </div>
+      <div class="field">
+        <label for="f-max">Valor máximo</label>
+        <select class="select" id="f-max" name="max"><option value="">Sem máximo</option><option value="500000">R$ 500 mil</option><option value="750000">R$ 750 mil</option><option value="1000000">R$ 1 milhão</option><option value="1500000">R$ 1,5 milhão</option><option value="2000000">R$ 2 milhões</option></select>
+      </div>
+      <div class="field">
+        <label for="f-quartos">Quartos</label>
+        <select class="select" id="f-quartos" name="quartos"><option value="">Qualquer</option><option value="1">1+</option><option value="2">2+</option><option value="3">3+</option><option value="4">4+</option></select>
+      </div>
+      <label class="check"><input type="checkbox" name="favoritos" value="1"> Somente favoritos</label>
+      <div class="filters__actions">
+        <button class="btn btn--dark" type="submit">Ver resultados</button>
+        <button class="btn btn--ghost" type="button" data-reset>Limpar filtros</button>
+      </div>
+    </form>
+    <div>
+      <div class="toolbar">
+        <p class="results-count" id="results-count" aria-live="polite"></p>
+        <div style="display:flex;gap:8px;flex:1;justify-content:flex-end">
+          <button class="btn btn--ghost btn--sm filters-open" type="button" aria-expanded="false">Filtros</button>
+          <label class="sr-only" for="sort">Ordenar</label>
+          <select class="select" id="sort">
+            <option value="relevancia">Mais relevantes</option>
+            <option value="menor">Menor valor</option>
+            <option value="maior">Maior valor</option>
+            <option value="area">Maior área</option>
+          </select>
+        </div>
+      </div>
+      <div class="active-filters" id="active-filters"></div>
+      <div class="grid" id="results"></div>
+      <p class="note">Imóveis, valores e imagens fictícios, usados apenas para demonstração do projeto.</p>
+    </div>
+  </div>
+  <div class="scrim"></div>
+</main>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
