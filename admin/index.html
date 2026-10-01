@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Entrar · Painel Lucas Almeida</title>
+  <meta name="theme-color" content="#1b1d1f">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body class="admin-login" data-admin="login">
+<div class="auth">
+  <aside class="auth__side">
+    <a class="logo" href="../index.html"><span class="logo__name">LUCAS ALMEIDA</span><span class="logo__tag">NEGÓCIOS IMOBILIÁRIOS</span></a>
+    <div>
+      <h1>Painel de imóveis</h1>
+      <p>Cadastre, edite e publique os imóveis do site. Acesso restrito ao corretor.</p>
+    </div>
+    <a class="link-arrow" href="../index.html" style="color:#fff;align-self:flex-start">Voltar ao site <span>→</span></a>
+  </aside>
+  <main class="auth__main">
+    <div class="auth__box">
+
+      <section id="view-login">
+        <h2>Entrar</h2>
+        <p>Use o e-mail e a senha cadastrados no Supabase.</p>
+        <form id="login-form" novalidate>
+          <div class="form-msg form-msg--error" id="login-msg" role="alert" hidden></div>
+          <div class="field">
+            <label for="l-email">E-mail</label>
+            <input class="input" id="l-email" name="email" type="email" autocomplete="username" required>
+          </div>
+          <div class="field">
+            <label for="l-senha">Senha</label>
+            <input class="input" id="l-senha" name="senha" type="password" autocomplete="current-password" required>
+          </div>
+          <button class="btn btn--primary btn--block" type="submit">Entrar</button>
+          <div class="auth__links"><button type="button" data-view="reset">Esqueci minha senha</button></div>
+        </form>
+      </section>
+
+      <section id="view-reset" hidden>
+        <h2>Recuperar senha</h2>
+        <p>Enviaremos um link para você criar uma nova senha.</p>
+        <form id="reset-form" novalidate>
+          <div class="form-msg" id="reset-msg" role="status" hidden></div>
+          <div class="field">
+            <label for="r-email">E-mail</label>
+            <input class="input" id="r-email" name="email" type="email" autocomplete="username" required>
+          </div>
+          <button class="btn btn--primary btn--block" type="submit">Enviar link</button>
+          <div class="auth__links"><button type="button" data-view="login">Voltar para o login</button></div>
+        </form>
+      </section>
+
+      <section id="view-nova" hidden>
+        <h2>Nova senha</h2>
+        <p>Escolha uma senha com pelo menos 8 caracteres.</p>
+        <form id="nova-form" novalidate>
+          <div class="form-msg" id="nova-msg" role="status" hidden></div>
+          <div class="field">
+            <label for="n-senha">Nova senha</label>
+            <input class="input" id="n-senha" name="senha" type="password" autocomplete="new-password" minlength="8" required>
+          </div>
+          <div class="field">
+            <label for="n-senha2">Repita a nova senha</label>
+            <input class="input" id="n-senha2" name="senha2" type="password" autocomplete="new-password" minlength="8" required>
+          </div>
+          <button class="btn btn--primary btn--block" type="submit">Salvar nova senha</button>
+        </form>
+      </section>
+
+    </div>
+  </main>
+</div>
+<script src="../assets/js/config.js"></script>
+<script src="../assets/vendor/supabase-js-2.117.2.js"></script>
+<script src="../assets/js/admin.js"></script>
+</body>
+</html>

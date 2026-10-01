@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Visão geral · Painel Lucas Almeida</title>
+  <meta name="theme-color" content="#1b1d1f">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body class="admin is-checking" data-admin="painel">
+<div class="admin-gate" aria-live="polite">Verificando acesso…</div>
+<main class="adm-main">
+  <div class="container">
+    <div class="adm-head">
+      <div><span class="chapter">Painel</span><h1>Visão geral</h1><p id="dash-hello"></p></div>
+      <div class="adm-head__actions"><a class="btn btn--primary" href="imovel.html">+ Novo imóvel</a></div>
+    </div>
+    <div class="stats" id="stats" aria-live="polite"></div>
+    <div class="dash-grid">
+      <section class="panel">
+        <div class="panel__head"><h2>Atualizados recentemente</h2><a class="link-arrow" href="imoveis.html">Ver todos <span>→</span></a></div>
+        <div id="recent"></div>
+      </section>
+      <div style="display:grid;gap:20px">
+        <section class="panel">
+          <div class="panel__head"><h2>Situação dos imóveis</h2></div>
+          <div class="panel__body"><ul class="status-bars" id="status-bars"></ul></div>
+        </section>
+        <section class="panel">
+          <div class="panel__head"><h2>Pendências</h2></div>
+          <div class="panel__body"><ul class="todo" id="todo"></ul></div>
+        </section>
+      </div>
+    </div>
+  </div>
+</main>
+<script src="../assets/js/config.js"></script>
+<script src="../assets/vendor/supabase-js-2.117.2.js"></script>
+<script src="../assets/js/admin.js"></script>
+</body>
+</html>

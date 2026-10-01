@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Imóvel · Painel Lucas Almeida</title>
+  <meta name="theme-color" content="#1b1d1f">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body class="admin is-checking" data-admin="imovel">
+<div class="admin-gate" aria-live="polite">Verificando acesso…</div>
+<main class="adm-main">
+  <div class="container">
+    <div class="adm-head">
+      <div>
+        <span class="chapter"><a href="imoveis.html" style="color:inherit;text-decoration:none">← Imóveis</a></span>
+        <h1 id="form-title">Novo imóvel</h1>
+        <p id="form-sub">Preencha os dados e salve. As fotos podem ser adicionadas antes de salvar.</p>
+      </div>
+    </div>
+
+    <form id="imovel-form" class="edit-layout" novalidate>
+      <div class="form-sections">
+        <div class="form-alert" id="form-alert" role="alert" hidden></div>
+
+        <section class="panel">
+          <div class="panel__head"><h2>Informações básicas</h2></div>
+          <div class="panel__body fgrid">
+            <div class="field field--full">
+              <label for="titulo">Título <span class="req">*</span></label>
+              <input class="input" id="titulo" name="titulo" maxlength="120" required placeholder="Ex.: Casa contemporânea">
+              <span class="field-error" id="titulo-err"></span>
+            </div>
+            <div class="field">
+              <label for="tipo">Tipo <span class="req">*</span></label>
+              <select class="select" id="tipo" name="tipo" required>
+                <option value="Casa">Casa</option><option value="Apartamento">Apartamento</option><option value="Terreno">Terreno</option><option value="Comercial">Comercial</option>
+              </select>
+            </div>
+            <div class="field">
+              <span>Finalidade <span class="req">*</span></span>
+              <div class="segmented segmented--form" role="radiogroup" aria-label="Finalidade">
+                <label><input type="radio" name="finalidade" value="comprar" checked><span>Venda</span></label>
+                <label><input type="radio" name="finalidade" value="alugar"><span>Aluguel</span></label>
+              </div>
+            </div>
+            <div class="field">
+              <label for="codigo">Código <span class="req">*</span> <span class="hint">identificação interna</span></label>
+              <input class="input" id="codigo" name="codigo" maxlength="20" required placeholder="LA-107">
+              <span class="field-error" id="codigo-err"></span>
+            </div>
+            <div class="field">
+              <label for="slug">Endereço da página <span class="req">*</span> <span class="hint">gerado pelo título</span></label>
+              <input class="input" id="slug" name="slug" maxlength="90" required placeholder="casa-contemporanea-campinas">
+              <span class="field-error" id="slug-err"></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel__head"><h2>Valores</h2></div>
+          <div class="panel__body fgrid fgrid--3">
+            <div class="field">
+              <label for="preco"><span id="preco-label">Preço de venda</span> <span class="req">*</span></label>
+              <div class="input-prefix"><span>R$</span><input class="input" id="preco" name="preco" inputmode="numeric" required data-money placeholder="0"></div>
+              <span class="field-error" id="preco-err"></span>
+            </div>
+            <div class="field">
+              <label for="condominio_valor">Condomínio <span class="hint">por mês</span></label>
+              <div class="input-prefix"><span>R$</span><input class="input" id="condominio_valor" name="condominio_valor" inputmode="numeric" data-money placeholder="—"></div>
+            </div>
+            <div class="field">
+              <label for="iptu">IPTU <span class="hint">por ano</span></label>
+              <div class="input-prefix"><span>R$</span><input class="input" id="iptu" name="iptu" inputmode="numeric" data-money placeholder="—"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel__head"><h2>Localização</h2></div>
+          <div class="panel__body fgrid">
+            <div class="field">
+              <label for="cidade">Cidade <span class="req">*</span></label>
+              <input class="input" id="cidade" name="cidade" list="cidades" maxlength="80" required>
+              <datalist id="cidades"><option value="Campinas"><option value="Valinhos"><option value="Vinhedo"><option value="Sumaré"><option value="Paulínia"></datalist>
+              <span class="field-error" id="cidade-err"></span>
+            </div>
+            <div class="field">
+              <label for="bairro">Bairro</label>
+              <input class="input" id="bairro" name="bairro" maxlength="80">
+            </div>
+            <div class="field">
+              <label for="lat">Latitude <span class="hint">para o mapa aproximado</span></label>
+              <input class="input" id="lat" name="lat" inputmode="decimal" placeholder="ex.: -22.9056">
+              <span class="field-error" id="lat-err"></span>
+            </div>
+            <div class="field">
+              <label for="lng">Longitude</label>
+              <input class="input" id="lng" name="lng" inputmode="decimal" placeholder="ex.: -47.0608">
+              <span class="field-error" id="lng-err"></span>
+            </div>
+            <p class="hint field--full" style="font-size:.8rem;color:var(--muted)">No Google Maps, toque e segure no local e copie as coordenadas. Você pode colar “-22.90, -47.06” direto no campo Latitude.</p>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel__head"><h2>Características</h2></div>
+          <div class="panel__body fgrid fgrid--5">
+            <div class="field" data-hide-for="Terreno Comercial"><label for="quartos">Quartos</label><input class="input" id="quartos" name="quartos" type="number" min="0" max="50" inputmode="numeric" value="0"></div>
+            <div class="field" data-hide-for="Terreno Comercial"><label for="suites">Suítes</label><input class="input" id="suites" name="suites" type="number" min="0" max="50" inputmode="numeric" value="0"></div>
+            <div class="field" data-hide-for="Terreno"><label for="banheiros">Banheiros</label><input class="input" id="banheiros" name="banheiros" type="number" min="0" max="50" inputmode="numeric" value="0"></div>
+            <div class="field" data-hide-for="Terreno"><label for="vagas">Vagas</label><input class="input" id="vagas" name="vagas" type="number" min="0" max="50" inputmode="numeric" value="0"></div>
+            <div class="field"><label for="area">Área (m²)</label><input class="input" id="area" name="area" inputmode="decimal" placeholder="0"><span class="field-error" id="area-err"></span></div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel__head"><h2>Descrição</h2></div>
+          <div class="panel__body fgrid">
+            <div class="field field--full">
+              <label for="resumo">Resumo <span class="hint">uma frase curta</span></label>
+              <input class="input" id="resumo" name="resumo" maxlength="160">
+              <span class="counter" data-counter="resumo"></span>
+            </div>
+            <div class="field field--full">
+              <label for="descricao">Descrição completa <span class="hint">deixe uma linha em branco entre os parágrafos</span></label>
+              <textarea class="textarea" id="descricao" name="descricao" rows="8"></textarea>
+            </div>
+            <div class="field">
+              <label for="caracteristicas">Características do imóvel <span class="hint">uma por linha</span></label>
+              <textarea class="textarea" id="caracteristicas" name="caracteristicas" rows="7" placeholder="Ex.: Cozinha planejada&#10;Área gourmet"></textarea>
+            </div>
+            <div class="field">
+              <label for="itens_condominio">Itens do condomínio <span class="hint">uma por linha · opcional</span></label>
+              <textarea class="textarea" id="itens_condominio" name="itens_condominio" rows="7" placeholder="Ex.: Portaria 24h&#10;Piscina"></textarea>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel__head"><h2>Fotos</h2><span class="result-line" id="photo-count" style="margin:0"></span></div>
+          <div class="panel__body">
+            <label class="dropzone" id="dropzone">
+              <input type="file" id="photo-input" accept="image/jpeg,image/png,image/webp,image/avif" multiple>
+              <strong>Adicionar fotos</strong>
+              <span>Toque para escolher ou arraste as imagens aqui · JPG, PNG ou WebP</span>
+            </label>
+            <ul class="photos" id="photos"></ul>
+            <p class="photos-note">A primeira foto é a capa do imóvel. As imagens são otimizadas antes do envio (até 1920 px, formato WebP).</p>
+          </div>
+        </section>
+      </div>
+
+      <aside class="edit-side">
+        <section class="panel">
+          <div class="panel__head"><h2>Publicação</h2></div>
+          <div class="panel__body" style="display:grid;gap:18px">
+            <label class="switch"><input type="checkbox" id="publicado" name="publicado"><span class="switch__track"></span><span>Publicado no site</span></label>
+            <div class="field">
+              <label for="status">Situação</label>
+              <select class="select" id="status" name="status">
+                <option value="disponivel">Disponível</option><option value="reservado">Reservado</option><option value="vendido">Vendido</option><option value="alugado">Alugado</option>
+              </select>
+            </div>
+            <label class="switch"><input type="checkbox" id="destaque" name="destaque"><span class="switch__track"></span><span>Imóvel em destaque na página inicial</span></label>
+            <div class="fgrid" id="destaque-extra" style="gap:12px">
+              <div class="field"><label for="destaque_rotulo">Selo <span class="hint">opcional</span></label><input class="input" id="destaque_rotulo" name="destaque_rotulo" maxlength="24" placeholder="Exclusivo"></div>
+              <div class="field"><label for="destaque_ordem">Ordem</label><input class="input" id="destaque_ordem" name="destaque_ordem" type="number" min="0" max="999" inputmode="numeric"></div>
+            </div>
+            <div class="side-actions">
+              <button class="btn btn--primary btn--block" type="submit" id="save-btn">Salvar imóvel</button>
+              <a class="btn btn--ghost btn--block" id="view-btn" href="#" target="_blank" rel="noopener" hidden>Ver no site ↗</a>
+              <p class="save-state" id="save-state" aria-live="polite"></p>
+            </div>
+          </div>
+        </section>
+        <section class="panel danger-zone" id="danger" hidden>
+          <div class="panel__body" style="display:grid;gap:10px">
+            <p style="font-size:.88rem;color:var(--muted)">Excluir remove o imóvel e todas as fotos. Não é possível desfazer.</p>
+            <button class="btn btn--danger btn--block" type="button" id="delete-btn">Excluir imóvel</button>
+          </div>
+        </section>
+      </aside>
+    </form>
+  </div>
+</main>
+<script src="../assets/js/config.js"></script>
+<script src="../assets/vendor/supabase-js-2.117.2.js"></script>
+<script src="../assets/js/admin.js"></script>
+</body>
+</html>

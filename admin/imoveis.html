@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Imóveis · Painel Lucas Almeida</title>
+  <meta name="theme-color" content="#1b1d1f">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body class="admin is-checking" data-admin="imoveis">
+<div class="admin-gate" aria-live="polite">Verificando acesso…</div>
+<main class="adm-main">
+  <div class="container">
+    <div class="adm-head">
+      <div><span class="chapter">Painel</span><h1>Imóveis</h1></div>
+      <div class="adm-head__actions"><a class="btn btn--primary" href="imovel.html">+ Novo imóvel</a></div>
+    </div>
+    <div class="toolbar-adm" role="search">
+      <div class="field field--search">
+        <label class="sr-only" for="q">Buscar</label>
+        <input class="input" id="q" type="search" placeholder="Buscar por título, código, bairro ou cidade">
+      </div>
+      <div class="field">
+        <label class="sr-only" for="f-status">Situação</label>
+        <select class="select" id="f-status">
+          <option value="">Todas as situações</option>
+          <option value="disponivel">Disponível</option>
+          <option value="reservado">Reservado</option>
+          <option value="vendido">Vendido</option>
+          <option value="alugado">Alugado</option>
+        </select>
+      </div>
+      <div class="field">
+        <label class="sr-only" for="f-pub">Publicação</label>
+        <select class="select" id="f-pub">
+          <option value="">Publicados e rascunhos</option>
+          <option value="1">Somente publicados</option>
+          <option value="0">Somente rascunhos</option>
+          <option value="destaque">Somente destaques</option>
+        </select>
+      </div>
+    </div>
+    <p class="result-line" id="result-line" aria-live="polite"></p>
+    <section class="panel" id="list-panel"></section>
+  </div>
+</main>
+<script src="../assets/js/config.js"></script>
+<script src="../assets/vendor/supabase-js-2.117.2.js"></script>
+<script src="../assets/js/admin.js"></script>
+</body>
+</html>

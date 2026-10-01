@@ -11,7 +11,7 @@
  * é feita para isso — quem protege os dados são as políticas RLS do banco.
  */
 window.APP_CONFIG = Object.freeze({
-  SUPABASE_URL: "",
-  SUPABASE_ANON_KEY: "",
+  SUPABASE_URL: "https://mozgoozvcqsuzifhzseo.supabase.co",
+  SUPABASE_ANON_KEY: "sb_publishable_6FwWnqBDX4KPa3l4LHHmhw_kbQ0kKis",
   STORAGE_BUCKET: "imoveis",
 });
