@@ -17,16 +17,27 @@ create table if not exists public.admins (
 );
 
 -- Função auxiliar usada nas políticas RLS.
+-- Fica no schema "private", que a API não expõe (/rest/v1/rpc).
 -- security definer: consegue ler "admins" mesmo com RLS ativo.
-create or replace function public.is_admin()
+create schema if not exists private;
+revoke all on schema private from public;
+grant usage on schema private to authenticated;
+
+create or replace function private.is_admin()
 returns boolean
 language sql
 stable
 security definer
-set search_path = public
+set search_path = ''
 as $$
-  select exists (select 1 from public.admins where user_id = auth.uid());
+  select exists (
+    select 1 from public.admins where user_id = (select auth.uid())
+  );
 $$;
+
+revoke all on function private.is_admin() from public;
+revoke all on function private.is_admin() from anon;
+grant execute on function private.is_admin() to authenticated;
 
 -- ---------------------------------------------------------
 -- Tabela: imoveis
@@ -79,6 +90,7 @@ create index if not exists imoveis_cidade_idx    on public.imoveis (cidade);
 create or replace function public.set_atualizado_em()
 returns trigger
 language plpgsql
+set search_path = ''
 as $$
 begin
   new.atualizado_em := now();
@@ -126,8 +138,8 @@ drop policy if exists "imoveis: admin total" on public.imoveis;
 create policy "imoveis: admin total"
   on public.imoveis for all
   to authenticated
-  using (public.is_admin())
-  with check (public.is_admin());
+  using (private.is_admin())
+  with check (private.is_admin());
 
 drop policy if exists "fotos: leitura publica de imoveis publicados" on public.imovel_fotos;
 create policy "fotos: leitura publica de imoveis publicados"
@@ -142,8 +154,8 @@ drop policy if exists "fotos: admin total" on public.imovel_fotos;
 create policy "fotos: admin total"
   on public.imovel_fotos for all
   to authenticated
-  using (public.is_admin())
-  with check (public.is_admin());
+  using (private.is_admin())
+  with check (private.is_admin());
 
 -- Um usuário logado só consegue ver a própria linha em "admins".
 -- Não há política de insert/update/delete: admins são cadastrados
@@ -182,17 +194,20 @@ drop policy if exists "imoveis bucket: admin envia" on storage.objects;
 create policy "imoveis bucket: admin envia"
   on storage.objects for insert
   to authenticated
-  with check (bucket_id = 'imoveis' and public.is_admin());
+  with check (bucket_id = 'imoveis' and private.is_admin());
 
 drop policy if exists "imoveis bucket: admin atualiza" on storage.objects;
 create policy "imoveis bucket: admin atualiza"
   on storage.objects for update
   to authenticated
-  using (bucket_id = 'imoveis' and public.is_admin())
-  with check (bucket_id = 'imoveis' and public.is_admin());
+  using (bucket_id = 'imoveis' and private.is_admin())
+  with check (bucket_id = 'imoveis' and private.is_admin());
 
 drop policy if exists "imoveis bucket: admin remove" on storage.objects;
 create policy "imoveis bucket: admin remove"
   on storage.objects for delete
   to authenticated
-  using (bucket_id = 'imoveis' and public.is_admin());
+  using (bucket_id = 'imoveis' and private.is_admin());
+
+-- Versão antiga de is_admin (exposta pela API), caso exista de uma execução anterior
+drop function if exists public.is_admin();
