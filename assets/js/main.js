@@ -26,6 +26,11 @@
 
   const imgTag = (id, alt, w = 1200, attrs = "") =>
     `<img src="${IMG(id, w)}" alt="${esc(alt)}" loading="lazy" decoding="async" ${attrs}>`;
+  // Fotos dos imóveis (vindas do Supabase): URL externa ou caminho no Storage
+  const photoTag = (caminho, alt, w = 1200, attrs = "") =>
+    caminho
+      ? `<img src="${esc(API.fotoUrl(caminho, w))}" alt="${esc(alt)}" loading="lazy" decoding="async" ${attrs}>`
+      : `<span class="img-fallback" role="img" aria-label="${esc(alt)}"></span>`;
 
   // Fallback elegante caso alguma imagem externa não carregue
   document.addEventListener("error", (e) => {
@@ -76,7 +81,7 @@
   });
 
   const favButton = (id) =>
-    `<button class="fav-btn" type="button" data-fav="${id}" aria-pressed="${isFav(id)}" aria-label="${isFav(id) ? "Remover dos favoritos" : "Salvar nos favoritos"}">${ICON.heart}</button>`;
+    `<button class="fav-btn" type="button" data-fav="${esc(id)}" aria-pressed="${isFav(id)}" aria-label="${isFav(id) ? "Remover dos favoritos" : "Salvar nos favoritos"}">${ICON.heart}</button>`;
 
   /* ---------- Cards ---------- */
   const specsList = (p) => {
@@ -88,30 +93,59 @@
     return `<ul class="specs">${items.map(([i, t]) => `<li>${i}${t}</li>`).join("")}</ul>`;
   };
   const locLabel = (p) => (p.bairro && !/condom|loteamento/i.test(p.bairro) ? `${p.bairro} · ${p.cidade} - SP` : `${p.cidade} - SP`);
-  const detailUrl = (p) => `imovel.html?id=${p.id}`;
+  const detailUrl = (p) => `imovel.html?id=${encodeURIComponent(p.id)}`;
+  const STATUS_LABEL = { reservado: "Reservado", vendido: "Vendido", alugado: "Alugado" };
+  const finalidadeLabel = (p) => (p.finalidade === "alugar" ? "Aluguel" : "Venda");
 
   const cardHTML = (p) => `
     <article class="card reveal">
       <div class="card__media">
-        ${imgTag(p.imagens[0], `${p.titulo} em ${p.cidade} (imagem demonstrativa)`, 900)}
+        ${photoTag(p.imagens[0], p.legendas?.[0] || `${p.titulo} em ${p.cidade} (imagem demonstrativa)`, 900)}
         <div class="card__tags">
-          <span class="tag">${p.finalidade === "alugar" ? "Aluguel" : "Venda"}</span>
-          ${p.destaque ? `<span class="tag tag--accent">${esc(p.destaque)}</span>` : ""}
+          <span class="tag">${STATUS_LABEL[p.status] || finalidadeLabel(p)}</span>
+          ${p.destaque && !STATUS_LABEL[p.status] ? `<span class="tag tag--accent">${esc(p.destaque)}</span>` : ""}
         </div>
         ${favButton(p.id)}
       </div>
       <div class="card__body">
-        <span class="card__type">${p.tipo}</span>
+        <span class="card__type">${esc(p.tipo)}</span>
         <h3 class="card__title"><a href="${detailUrl(p)}">${esc(p.titulo)}</a></h3>
         <p class="card__loc">${esc(locLabel(p))}</p>
         <p class="card__price">${brl(p.preco)}</p>
         ${specsList(p)}
         <div class="card__foot">
-          <span class="card__code">Cód. ${p.codigo}</span>
+          <span class="card__code">Cód. ${esc(p.codigo)}</span>
           <a class="btn btn--ghost btn--sm" href="${detailUrl(p)}">Ver imóvel</a>
         </div>
       </div>
     </article>`;
+
+  /* ---------- Estados: carregando / vazio / erro ---------- */
+  const skeletonCards = (n = 3) => Array.from({ length: n }, () => `
+    <div class="card card--skeleton" aria-hidden="true">
+      <div class="card__media"></div>
+      <div class="card__body"><span class="sk sk--sm"></span><span class="sk sk--lg"></span><span class="sk"></span><span class="sk sk--md"></span></div>
+    </div>`).join("");
+  const loadingBox = (grid, n) => {
+    grid.setAttribute("aria-busy", "true");
+    grid.innerHTML = `<p class="sr-only" role="status">Carregando imóveis…</p>${skeletonCards(n)}`;
+  };
+  const errorBox = (err, { titulo = "Não foi possível carregar os imóveis" } = {}) => {
+    console.error("[imóveis]", err?.message || err, err?.detalhe || "");
+    const texto = err?.tipo === "config"
+      ? "Os imóveis estão temporariamente indisponíveis. Enquanto isso, fale direto com o corretor."
+      : "Verifique sua conexão e tente novamente. Se o problema continuar, fale direto com o corretor.";
+    return `
+      <div class="empty empty--error" role="alert">
+        <h3>${titulo}</h3>
+        <p>${texto}</p>
+        ${err?.tipo === "config" ? "" : `<button class="btn btn--ghost" type="button" data-retry>Tentar novamente</button>`}
+        <a class="btn btn--primary" href="#" data-wa="Olá Lucas, vim pelo seu site e gostaria de ver os imóveis disponíveis.">Falar com o Lucas</a>
+      </div>`;
+  };
+  // Botões "Tentar novamente" chamam o carregador da página atual
+  let retry = null;
+  document.addEventListener("click", (e) => { if (e.target.closest("[data-retry]") && retry) retry(); });
 
   /* ---------- Header / menu / footer ---------- */
   const NAV = [
@@ -292,7 +326,26 @@
   /* ---------- Home ---------- */
   const initHome = () => {
     const featured = $("#featured-grid");
-    if (featured) featured.innerHTML = IMOVEIS.map(cardHTML).join("");
+    const loadFeatured = async () => {
+      if (!featured) return;
+      loadingBox(featured, 3);
+      try {
+        const list = await API.listarDestaques();
+        featured.innerHTML = list.length ? list.map(cardHTML).join("") : `
+          <div class="empty">
+            <h3>Novas oportunidades em breve</h3>
+            <p>No momento não há imóveis em destaque. Veja todos os imóveis disponíveis ou conte o que você procura.</p>
+            <a class="btn btn--ghost" href="imoveis.html">Ver todos os imóveis</a>
+            <a class="btn btn--primary" href="#" data-wa="Olá Lucas, vim pelo seu site e gostaria de saber quais imóveis estão disponíveis.">Falar com o Lucas</a>
+          </div>`;
+      } catch (err) {
+        featured.innerHTML = errorBox(err);
+      }
+      featured.removeAttribute("aria-busy");
+      observeReveals(featured);
+    };
+    retry = loadFeatured;
+    loadFeatured();
     const regions = $("#regions");
     if (regions) regions.innerHTML = REGIOES.map((r) => `
       <a class="region reveal" href="imoveis.html?local=${encodeURIComponent(r.nome)}">
@@ -326,7 +379,10 @@
       quartos: (v) => `${v}+ quartos`, favoritos: () => "Favoritos",
     };
 
+    let IMOVEIS = null; // carregado do Supabase
+
     const apply = (push = true) => {
+      if (!IMOVEIS) return;
       const fd = new FormData(form);
       const q = Object.fromEntries([...fd].filter(([, v]) => v));
       let list = IMOVEIS.filter((p) =>
@@ -346,11 +402,12 @@
       chips.innerHTML = Object.entries(q).map(([k, v]) =>
         `<button type="button" data-clear="${k}" aria-label="Remover filtro ${esc(LABELS[k](v))}">${esc(LABELS[k](v))} <span aria-hidden="true">×</span></button>`).join("");
 
+      const semCadastro = IMOVEIS.length === 0;
       grid.innerHTML = list.length ? list.map(cardHTML).join("") : `
         <div class="empty">
-          <h3>${q.favoritos ? "Nenhum favorito ainda" : "Nenhum imóvel com esses filtros"}</h3>
-          <p>${q.favoritos ? "Toque no coração dos imóveis que chamarem sua atenção para compará-los aqui depois." : "Ajuste os filtros ou conte o que você procura — novas oportunidades nem sempre aparecem no site."}</p>
-          <button class="btn btn--ghost" type="button" data-reset>Limpar filtros</button>
+          <h3>${semCadastro ? "Nenhum imóvel disponível no momento" : q.favoritos ? "Nenhum favorito ainda" : "Nenhum imóvel com esses filtros"}</h3>
+          <p>${semCadastro ? "Novas oportunidades são cadastradas com frequência. Conte o que você procura e receba as opções primeiro." : q.favoritos ? "Toque no coração dos imóveis que chamarem sua atenção para compará-los aqui depois." : "Ajuste os filtros ou conte o que você procura — novas oportunidades nem sempre aparecem no site."}</p>
+          ${semCadastro && !Object.keys(q).length ? "" : `<button class="btn btn--ghost" type="button" data-reset>Limpar filtros</button>`}
           <a class="btn btn--primary" href="#" data-wa="Olá Lucas, não encontrei no site o imóvel que procuro. Pode me ajudar?">Pedir ajuda ao Lucas</a>
         </div>`;
       observeReveals(grid);
@@ -383,14 +440,58 @@
     $(".filters__close").addEventListener("click", closeFilters);
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeFilters(); });
 
-    apply(false);
+    const load = async () => {
+      IMOVEIS = null;
+      count.textContent = "Carregando imóveis…";
+      chips.innerHTML = "";
+      loadingBox(grid, 4);
+      try {
+        IMOVEIS = await API.listarParaListagem();
+        grid.removeAttribute("aria-busy");
+        apply(false);
+      } catch (err) {
+        grid.removeAttribute("aria-busy");
+        count.textContent = "";
+        grid.innerHTML = errorBox(err);
+      }
+    };
+    retry = load;
+    load();
   };
 
   /* ---------- Página do imóvel ---------- */
   const initProperty = () => {
     const root = $("#property");
     const id = new URLSearchParams(location.search).get("id");
-    const p = IMOVEIS.find((i) => i.id === id);
+    const load = async () => {
+      root.setAttribute("aria-busy", "true");
+      root.innerHTML = `
+        <div class="container property-loading" role="status">
+          <span class="sr-only">Carregando imóvel…</span>
+          <div class="sk sk--block" aria-hidden="true"></div>
+          <div class="property" aria-hidden="true"><div><span class="sk sk--sm"></span><span class="sk sk--xl"></span><span class="sk sk--md"></span><span class="sk"></span><span class="sk"></span></div><div class="sk sk--aside"></div></div>
+        </div>`;
+      let p, outros;
+      try {
+        [p, outros] = await Promise.all([
+          API.buscarImovel(id),
+          API.listarPublicados({ apenasDisponiveis: true }).catch(() => []),
+        ]);
+      } catch (err) {
+        root.removeAttribute("aria-busy");
+        document.title = "Erro ao carregar imóvel · Lucas Almeida";
+        root.innerHTML = `<div class="container" style="margin:80px auto">${errorBox(err, { titulo: "Não foi possível carregar este imóvel" })}</div>`;
+        return;
+      }
+      root.removeAttribute("aria-busy");
+      renderProperty(p, outros);
+    };
+    retry = load;
+    load();
+  };
+
+  const renderProperty = (p, outros) => {
+    const root = $("#property");
     if (!p) {
       document.title = "Imóvel não encontrado · Lucas Almeida";
       root.innerHTML = `<div class="container"><div class="empty" style="margin:80px 0"><h3>Imóvel não encontrado</h3><p>Ele pode ter sido vendido ou removido. Veja outras opções disponíveis.</p><a class="btn btn--primary" href="imoveis.html">Ver todos os imóveis</a></div></div>`;
@@ -399,9 +500,12 @@
     document.title = `${p.titulo} em ${p.cidade} · Lucas Almeida`;
     document.body.classList.add("has-sticky-bar");
     const interesse = `Olá Lucas, vi o imóvel ${p.titulo} (${p.codigo}) no seu site e gostaria de receber mais informações.`;
-    const [lat, lng] = p.coords;
     const d = 0.012;
-    const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${lng - d}%2C${lat - d}%2C${lng + d}%2C${lat + d}&layer=mapnik`;
+    const mapSrc = p.coords
+      ? (([lat, lng]) => `https://www.openstreetmap.org/export/embed.html?bbox=${lng - d}%2C${lat - d}%2C${lng + d}%2C${lat + d}&layer=mapnik`)(p.coords)
+      : null;
+    const nFotos = p.imagens.length;
+    const altFoto = (i) => p.legendas?.[i] || `${p.titulo} — foto ${i + 1} (demonstrativa)`;
     const shown = p.imagens.slice(0, 5);
     const facts = [
       p.quartos && [p.quartos, p.suites ? `quartos · ${p.suites} ${p.suites > 1 ? "suítes" : "suíte"}` : "quartos"],
@@ -409,22 +513,23 @@
       p.vagas && [p.vagas, p.vagas > 1 ? "vagas" : "vaga"],
       [`${p.area}`, p.tipo === "Terreno" ? "m² de terreno" : "m² de área útil"],
     ].filter(Boolean);
-    const similares = IMOVEIS.filter((i) => i.id !== p.id).sort((a, b) => (b.tipo === p.tipo) - (a.tipo === p.tipo) || Math.abs(a.preco - p.preco) - Math.abs(b.preco - p.preco)).slice(0, 3);
+    const similares = outros.filter((i) => i.id !== p.id).sort((a, b) => (b.tipo === p.tipo) - (a.tipo === p.tipo) || Math.abs(a.preco - p.preco) - Math.abs(b.preco - p.preco)).slice(0, 3);
 
     root.innerHTML = `
       <div class="container">
         <nav class="breadcrumb" aria-label="Você está em"><a href="index.html">Início</a><span>/</span><a href="imoveis.html">Imóveis</a><span>/</span><span aria-current="page">${esc(p.titulo)}</span></nav>
         <div class="gallery-wrap">
-        <div class="gallery ${shown.length < 5 ? "gallery--few" : ""}">
-          ${shown.slice(0, shown.length < 5 ? 3 : 5).map((img, i) => `<button type="button" data-open="${i}" aria-label="Ampliar foto ${i + 1} de ${p.imagens.length}">${imgTag(img, `${p.titulo} — foto ${i + 1} (demonstrativa)`, i === 0 ? 1600 : 900, i === 0 ? 'fetchpriority="high" loading="eager"' : "")}</button>`).join("")}
+        ${nFotos ? `<div class="gallery ${shown.length < 5 ? "gallery--few" : ""}">
+          ${shown.slice(0, shown.length < 5 ? 3 : 5).map((img, i) => `<button type="button" data-open="${i}" aria-label="Ampliar foto ${i + 1} de ${nFotos}">${photoTag(img, altFoto(i), i === 0 ? 1600 : 900, i === 0 ? 'fetchpriority="high" loading="eager"' : "")}</button>`).join("")}
         </div>
-          <span class="tag gallery-count">${p.imagens.length} fotos · deslize</span>
-          <button class="btn btn--light btn--sm gallery__all" type="button" data-open="0">Ver todas as ${p.imagens.length} fotos</button>
+          <span class="tag gallery-count">${nFotos} ${nFotos > 1 ? "fotos · deslize" : "foto"}</span>
+          ${nFotos > 1 ? `<button class="btn btn--light btn--sm gallery__all" type="button" data-open="0">Ver todas as ${nFotos} fotos</button>` : ""}`
+        : `<div class="gallery gallery--empty img-fallback" role="img" aria-label="Fotos em breve"></div>`}
         </div>
         <div class="property">
           <div>
             <div class="property__head">
-              <span class="card__type">${p.tipo} · Venda · Cód. ${p.codigo}</span>
+              <span class="card__type">${esc(p.tipo)} · ${finalidadeLabel(p)} · Cód. ${esc(p.codigo)}${STATUS_LABEL[p.status] ? ` · <span class="status-label">${STATUS_LABEL[p.status]}</span>` : ""}</span>
               <h1>${esc(p.titulo)}</h1>
               <p class="property__loc">${esc(locLabel(p))}</p>
             </div>
@@ -432,17 +537,18 @@
             <div class="prose">${p.descricao.map((t) => `<p>${esc(t)}</p>`).join("")}</div>
             <section class="block"><h2>Características do imóvel</h2><ul class="feature-list">${p.caracteristicas.map((c) => `<li>${esc(c)}</li>`).join("")}</ul></section>
             ${p.condominio ? `<section class="block"><h2>Condomínio</h2><ul class="feature-list">${p.condominio.map((c) => `<li>${esc(c)}</li>`).join("")}</ul></section>` : ""}
-            <section class="block"><h2>Localização aproximada</h2>
+            ${mapSrc ? `<section class="block"><h2>Localização aproximada</h2>
               <div class="map"><iframe title="Mapa da região aproximada do imóvel" src="${mapSrc}" loading="lazy"></iframe></div>
               <p class="note">Por segurança, a localização exata é informada durante o atendimento. Mapa ilustrativo.</p>
-            </section>
+            </section>` : ""}
           </div>
           <aside class="aside" aria-label="Resumo e contato">
-            <div class="aside__price"><small>Valor de venda</small><strong>${brl(p.preco)}</strong></div>
+            <div class="aside__price"><small>${p.finalidade === "alugar" ? "Valor do aluguel" : "Valor de venda"}</small><strong>${brl(p.preco)}</strong>${
+              [p.condominioValor && `Condomínio ${brl(p.condominioValor)}`, p.iptu && `IPTU ${brl(p.iptu)}`].filter(Boolean).map((t) => `<small class="aside__extra">${t}</small>`).join("")}</div>
             <a class="btn btn--primary btn--block" href="${waLink(interesse)}" target="_blank" rel="noopener">${ICON.wa}Tenho interesse neste imóvel</a>
             <div class="aside__row">
               <button class="btn btn--ghost" type="button" data-visit>Agendar visita</button>
-              <button class="btn btn--ghost" type="button" data-fav="${p.id}" aria-pressed="${isFav(p.id)}" aria-label="${isFav(p.id) ? "Remover dos favoritos" : "Salvar nos favoritos"}" style="flex:0 0 auto;width:48px;padding:0">${ICON.heartNav}</button>
+              <button class="btn btn--ghost" type="button" data-fav="${esc(p.id)}" aria-pressed="${isFav(p.id)}" aria-label="${isFav(p.id) ? "Remover dos favoritos" : "Salvar nos favoritos"}" style="flex:0 0 auto;width:48px;padding:0">${ICON.heartNav}</button>
               <button class="btn btn--ghost" type="button" data-share aria-label="Compartilhar imóvel" style="flex:0 0 auto;width:48px;padding:0">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>
               </button>
@@ -452,12 +558,12 @@
           </aside>
         </div>
       </div>
-      <section class="section--tight section--alt">
+      ${similares.length ? `<section class="section--tight section--alt">
         <div class="container">
           <div class="section-head"><div><span class="chapter">Veja também</span><h2>Imóveis semelhantes</h2></div><a class="link-arrow" href="imoveis.html">Ver todos <span>→</span></a></div>
           <div class="grid">${similares.map(cardHTML).join("")}</div>
         </div>
-      </section>
+      </section>` : ""}
       <div class="sticky-bar">
         <button class="btn btn--ghost" type="button" data-visit>Agendar visita</button>
         <a class="btn btn--primary" href="${waLink(interesse)}" target="_blank" rel="noopener">${ICON.wa}Tenho interesse</a>
@@ -483,16 +589,17 @@
     const lbImg = $("img", lb);
     const lbCount = $("[data-lb-count]", lb);
     const thumbs = $(".lightbox__thumbs", lb);
-    thumbs.innerHTML = p.imagens.map((img, i) => `<button type="button" data-go="${i}" aria-label="Foto ${i + 1}">${imgTag(img, "", 200)}</button>`).join("");
+    thumbs.innerHTML = p.imagens.map((img, i) => `<button type="button" data-go="${i}" aria-label="Foto ${i + 1}">${photoTag(img, "", 200)}</button>`).join("");
     let cur = 0, lastFocus;
     const show = (i) => {
-      cur = (i + p.imagens.length) % p.imagens.length;
-      lbImg.src = IMG(p.imagens[cur], 1800);
-      lbImg.alt = `${p.titulo} — foto ${cur + 1} de ${p.imagens.length} (demonstrativa)`;
+      if (!nFotos) return;
+      cur = (i + nFotos) % nFotos;
+      lbImg.src = API.fotoUrl(p.imagens[cur], 1800);
+      lbImg.alt = p.legendas?.[cur] || `${p.titulo} — foto ${cur + 1} de ${nFotos} (demonstrativa)`;
       lbCount.textContent = `${cur + 1} / ${p.imagens.length}`;
       $$("button", thumbs).forEach((b, j) => b.setAttribute("aria-current", j === cur));
     };
-    const openLb = (i) => { lastFocus = document.activeElement; lb.classList.add("is-open"); document.body.style.overflow = "hidden"; show(i); $("[data-lb-close]", lb).focus(); };
+    const openLb = (i) => { if (!nFotos) return; lastFocus = document.activeElement; lb.classList.add("is-open"); document.body.style.overflow = "hidden"; show(i); $("[data-lb-close]", lb).focus(); };
     const closeLb = () => { lb.classList.remove("is-open"); document.body.style.overflow = ""; lastFocus?.focus(); };
     $$("[data-open]").forEach((b) => b.addEventListener("click", () => openLb(+b.dataset.open)));
     $("[data-lb-close]", lb).addEventListener("click", closeLb);
@@ -534,6 +641,7 @@
       vform.reset();
       toast("Pedido de visita preparado no WhatsApp");
     });
+    observeReveals(root);
   };
 
   /* ---------- Inicialização ---------- */

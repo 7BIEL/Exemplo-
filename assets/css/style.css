@@ -532,3 +532,21 @@ p { margin: 0; }
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* ---------- Estados de carregamento (ETAPA 1 · Supabase) ---------- */
+.sk { display: block; height: 14px; width: 80%; margin: 10px 0; border-radius: 6px; background: linear-gradient(90deg, var(--surface-2) 25%, #f4f1ea 50%, var(--surface-2) 75%); background-size: 200% 100%; animation: skShimmer 1.4s ease-in-out infinite; }
+.sk--sm { width: 30%; height: 10px; }
+.sk--md { width: 55%; }
+.sk--lg { width: 70%; height: 22px; }
+.sk--xl { width: 75%; height: 40px; margin: 16px 0; }
+.sk--block { width: 100%; height: clamp(320px, 56vw, 580px); margin: 24px 0 0; border-radius: 18px; }
+.sk--aside { width: 100%; height: 320px; border-radius: var(--radius); }
+.card--skeleton .card__media { animation: skShimmer 1.4s ease-in-out infinite; background: linear-gradient(90deg, var(--surface-2) 25%, #f4f1ea 50%, var(--surface-2) 75%); background-size: 200% 100%; }
+.card--skeleton:hover { transform: none; box-shadow: none; }
+@keyframes skShimmer { from { background-position: 100% 0; } to { background-position: -100% 0; } }
+.property-loading .property { padding-top: 40px; }
+.empty--error { border-color: var(--danger); border-style: solid; border-color: color-mix(in srgb, var(--danger) 35%, transparent); }
+.card__media > .img-fallback { position: absolute; inset: 0; }
+.gallery--empty { display: block; }
+.aside__price .aside__extra { margin-top: 6px; text-transform: none; letter-spacing: .02em; font-size: .85rem; }
+.status-label { color: var(--danger); }
