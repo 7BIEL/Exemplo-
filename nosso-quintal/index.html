@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Nosso Quintal · Bar e restaurante em Limeira, SP</title>
+  <meta name="description" content="Nosso Quintal, bar e restaurante na Vila São João, em Limeira: comida para compartilhar, música brasileira e uma mesa pra ficar à vontade. Reserve e peça pelo iFood.">
+  <meta name="theme-color" content="#2a1238">
+  <link rel="canonical" href="https://nossoquintal.example/">
+  <!-- Troque o domínio acima e nas tags og:url / og:image quando o site for publicado. -->
+  <meta property="og:type" content="restaurant">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Nosso Quintal">
+  <meta property="og:title" content="Nosso Quintal · Bar e restaurante em Limeira">
+  <meta property="og:description" content="Seu lugar para comer, brindar e ficar à vontade. Av. Piracicaba, 294 · Vila São João · Limeira, SP.">
+  <meta property="og:image" content="images/hero/nosso-quintal-hero-01.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Nosso Quintal",
+    "description": "Bar e restaurante em Limeira, SP, com gastronomia, música brasileira e ambiente acolhedor.",
+    "servesCuisine": "Brasileira",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Av. Piracicaba, 294",
+      "addressLocality": "Limeira",
+      "addressRegion": "SP",
+      "addressCountry": "BR"
+    },
+    "openingHoursSpecification": [{
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Tuesday","Wednesday","Thursday","Friday","Saturday"],
+      "opens": "16:00",
+      "closes": "00:00"
+    }],
+    "sameAs": ["https://www.instagram.com/nossoquintallimeira/"]
+  }
+  </script>
+</head>
+<body>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+<!-- ============ NAVEGAÇÃO ============ -->
+<header class="nav" id="nav">
+  <div class="nav__in">
+    <a class="logo" href="#inicio" aria-label="Nosso Quintal, início">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 3c8 0 17 5 17 15s-5 19-17 19S3 29 3 20 12 3 20 3z" fill="var(--amarelo)"/><circle cx="20" cy="20" r="6" fill="var(--rosa)"/></svg>
+      <span>Nosso<br>Quintal</span>
+    </a>
+    <nav class="nav__links" id="menu" aria-label="Principal">
+      <a href="#quintal">O Quintal</a>
+      <a href="#cardapio">Cardápio</a>
+      <a href="#destaques">Destaques</a>
+      <a href="#ambiente">Ambiente</a>
+      <a href="#experiencia">Experiência</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <a class="btn btn--sm btn--amarelo" data-link="reserva" href="#reservas">Reserve</a>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu"><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="conteudo">
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="inicio">
+  <figure class="slot hero__img" data-parallax="0.12">
+    <img src="images/hero/nosso-quintal-hero-01.webp" alt="Ambiente do Nosso Quintal, em Limeira" fetchpriority="high" onerror="this.remove()">
+    <span class="slot__ph" aria-hidden="true"><b>Foto oficial do Nosso Quintal</b><i>images/hero/nosso-quintal-hero-01.webp</i></span>
+  </figure>
+  <div class="hero__shade" aria-hidden="true"></div>
+  <div class="hero__in">
+    <p class="eyebrow eyebrow--light reveal">Bar e restaurante · Limeira, SP</p>
+    <h1 class="reveal">Seu lugar para comer, brindar e <em>ficar à vontade.</em></h1>
+    <div class="hero__cta reveal">
+      <a class="btn btn--amarelo" href="#cardapio">Conheça o cardápio</a>
+      <a class="btn btn--ghost" data-link="reserva" href="#reservas">Reserve sua mesa</a>
+    </div>
+    <a class="hero__ifood" data-link="ifood" href="#delivery">Peça pelo iFood →</a>
+  </div>
+  <svg class="blob blob--hero" viewBox="0 0 200 200" aria-hidden="true"><path d="M44 14c40-24 110-4 128 40s-14 60-30 92-62 52-98 24S-14 60 44 14z" fill="var(--rosa)"/></svg>
+</section>
+
+<!-- ============ O NOSSO QUINTAL ============ -->
+<section class="sec quintal" id="quintal">
+  <div class="wrap quintal__grid">
+    <div class="quintal__txt">
+      <p class="eyebrow reveal">O Nosso Quintal</p>
+      <h2 class="reveal">O lugar onde você <em>se sente em casa.</em></h2>
+      <p class="lead reveal">Chega mais. O Nosso Quintal junta comida boa, um espaço pra ficar sem pressa, música brasileira no fundo e gente querida em volta da mesa. Aqui, a conversa é que dita o ritmo.</p>
+      <div class="historia reveal" id="historia">
+        <h3>Nossa história</h3>
+        <ul class="historia__list" id="historia-list"></ul>
+      </div>
+    </div>
+    <div class="quintal__img">
+      <figure class="slot reveal" style="--r:4/5" data-parallax="0.06">
+        <img src="images/historia/nosso-quintal-historia-01.webp" alt="Mesa e ambiente do Nosso Quintal" loading="lazy" onerror="this.remove()">
+        <span class="slot__ph" aria-hidden="true"><b>Foto oficial do Nosso Quintal</b><i>images/historia/nosso-quintal-historia-01.webp</i></span>
+      </figure>
+      <svg class="blob blob--q1" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 4c28 0 46 22 44 46S72 96 46 94 4 72 6 46 22 4 50 4z" fill="var(--verde)"/></svg>
+      <svg class="blob blob--q2" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="var(--amarelo)"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPERIÊNCIA ============ -->
+<section class="sec exp" id="experiencia">
+  <div class="wrap">
+    <p class="eyebrow eyebrow--light reveal">Experiência</p>
+    <h2 class="reveal">Tem coisa que <em>não cabe no cardápio.</em></h2>
+    <div class="exp__grid">
+      <article class="pilar pilar--a reveal">
+        <figure class="slot" style="--r:4/3"><img src="images/pratos/nosso-quintal-prato-01.webp" alt="Prato servido no Nosso Quintal" loading="lazy" onerror="this.remove()"><span class="slot__ph" aria-hidden="true"><b>Foto oficial</b><i>images/pratos/nosso-quintal-prato-01.webp</i></span></figure>
+        <h3>Gastronomia</h3><p>Pratos e sabores para compartilhar.</p>
+      </article>
+      <article class="pilar pilar--b reveal">
+        <figure class="slot" style="--r:3/4"><img src="images/ambiente/nosso-quintal-salao-02.webp" alt="Salão do Nosso Quintal" loading="lazy" onerror="this.remove()"><span class="slot__ph" aria-hidden="true"><b>Foto oficial</b><i>images/ambiente/nosso-quintal-salao-02.webp</i></span></figure>
+        <h3>Ambiente</h3><p>Um espaço acolhedor para aproveitar sem pressa.</p>
+      </article>
+      <article class="pilar pilar--c reveal">
+        <figure class="slot" style="--r:1/1"><img src="images/eventos/nosso-quintal-musica-01.webp" alt="Música ao vivo no Nosso Quintal" loading="lazy" onerror="this.remove()"><span class="slot__ph" aria-hidden="true"><b>Foto oficial</b><i>images/eventos/nosso-quintal-musica-01.webp</i></span></figure>
+        <h3>Música</h3><p>A música brasileira faz parte da atmosfera do Nosso Quintal.</p>
+      </article>
+      <article class="pilar pilar--d reveal">
+        <figure class="slot" style="--r:4/3"><img src="images/galeria/nosso-quintal-encontro-01.webp" alt="Amigos reunidos no Nosso Quintal" loading="lazy" onerror="this.remove()"><span class="slot__ph" aria-hidden="true"><b>Foto oficial</b><i>images/galeria/nosso-quintal-encontro-01.webp</i></span></figure>
+        <h3>Encontros</h3><p>Um lugar para reunir amigos, família e pessoas especiais.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DESTAQUES ============ -->
+<section class="sec dest" id="destaques">
+  <div class="wrap">
+    <p class="eyebrow reveal" id="dest-eyebrow">Destaques do cardápio</p>
+    <h2 class="reveal">Tem coisa que <em>você precisa provar.</em></h2>
+    <div class="dest__grid" id="dest-grid"></div>
+  </div>
+</section>
+
+<!-- ============ CARDÁPIO ============ -->
+<section class="sec card" id="cardapio">
+  <div class="wrap">
+    <p class="eyebrow reveal">Cardápio</p>
+    <h2 class="reveal">Do nosso cardápio <em>para a sua mesa.</em></h2>
+    <div class="tabs" id="card-tabs" role="tablist" aria-label="Categorias do cardápio"></div>
+    <div class="card__list" id="card-list" aria-live="polite"></div>
+    <div class="card__cta">
+      <a class="btn btn--roxo" data-link="cardapio" href="#cardapio" target="_blank" rel="noopener">Ver cardápio completo</a>
+      <a class="btn btn--outline" data-link="ifood" href="#delivery" target="_blank" rel="noopener">Pedir pelo iFood</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AMBIENTE ============ -->
+<section class="sec amb" id="ambiente">
+  <div class="wrap">
+    <p class="eyebrow eyebrow--light reveal">Ambiente</p>
+    <h2 class="reveal">Entre. <em>Fique à vontade.</em></h2>
+  </div>
+  <div class="amb__grid" id="amb-grid">
+    <figure class="slot a1 reveal" style="--r:16/10"><img src="images/ambiente/nosso-quintal-fachada.webp" alt="Fachada do Nosso Quintal, na Av. Piracicaba" loading="lazy" onerror="this.remove()"><span class="slot__ph" aria-hidden="true"><b>Fachada</b><i>images/ambiente/nosso-quintal-fachada.webp</i></span><figcaption>A fachada na Av. Piracicaba</figcaption></figure>
+    <figure class="slot a2 reveal" style="--r:3/4"><img src="images/ambiente/nosso-quintal-entrada.webp" alt="Entrada do Nosso Quintal" loading="lazy" onerror="this.remove()"><span class="slot__ph" aria-hidden="true"><b>Entrada</b><i>images/ambiente/nosso-quintal-entrada.webp</i></span><figcaption>Chega mais</figcaption></figure>
+    <figure class="slot a3 reveal" style="--r:1/1"><img src="images/ambiente/nosso-quintal-mesas-01.webp" alt="Mesas do Nosso Quintal" loading="lazy" onerror="this.remove()"><span class="slot__ph" aria-hidden="true"><b>Mesas</b><i>images/ambiente/nosso-quintal-mesas-01.webp</i></span><figcaption>Escolhe a mesa</figcaption></figure>
+    <figure class="slot a4 reveal" style="--r:4/5"><img src="images/ambiente/nosso-quintal-salao-01.webp" alt="Salão do Nosso Quintal" loading="lazy" onerror="this.remove()"><span class="slot__ph" aria-hidden="true"><b>Salão</b><i>images/ambiente/nosso-quintal-salao-01.webp</i></span></figure>
+    <figure class="slot a5 reveal" style="--r:1/1"><img src="images/ambiente/nosso-quintal-detalhe-decoracao-01.webp" alt="Detalhe da decoração do Nosso Quintal" loading="lazy" onerror="this.remove()"><span class="slot__ph" aria-hidden="true"><b>Decoração</b><i>images/ambiente/nosso-quintal-detalhe-decoracao-01.webp</i></span></figure>
+    <figure class="slot a6 reveal" style="--r:16/10"><img src="images/ambiente/nosso-quintal-iluminacao-01.webp" alt="Iluminação do Nosso Quintal à noite" loading="lazy" onerror="this.remove()"><span class="slot__ph" aria-hidden="true"><b>Iluminação</b><i>images/ambiente/nosso-quintal-iluminacao-01.webp</i></span><figcaption>Deixa a conversa acontecer</figcaption></figure>
+    <figure class="slot a7 reveal" style="--r:3/4"><img src="images/ambiente/nosso-quintal-area-externa-01.webp" alt="Área externa do Nosso Quintal" loading="lazy" onerror="this.remove()"><span class="slot__ph" aria-hidden="true"><b>Área externa</b><i>images/ambiente/nosso-quintal-area-externa-01.webp</i></span></figure>
+  </div>
+</section>
+
+<!-- ============ MÚSICA ============ -->
+<section class="sec musica" id="musica">
+  <div class="wrap musica__grid">
+    <figure class="slot reveal" style="--r:1/1" data-parallax="0.08">
+      <img src="images/eventos/nosso-quintal-musica-02.webp" alt="Momento de música no Nosso Quintal" loading="lazy" onerror="this.remove()">
+      <span class="slot__ph" aria-hidden="true"><b>Foto oficial do Nosso Quintal</b><i>images/eventos/nosso-quintal-musica-02.webp</i></span>
+    </figure>
+    <div>
+      <p class="eyebrow reveal">Música</p>
+      <h2 class="reveal">Som que faz parte <em>do quintal.</em></h2>
+      <p class="lead reveal">Nossa música brasileira! Ela chega antes do prato, fica entre uma conversa e outra e é parte do jeito que a gente recebe.</p>
+      <a class="btn btn--verde reveal" data-link="spotify" href="#musica" target="_blank" rel="noopener">Ouça nossa playlist</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESERVAS ============ -->
+<section class="sec reserva" id="reservas">
+  <svg class="blob blob--r1" viewBox="0 0 200 200" aria-hidden="true"><path d="M44 14c40-24 110-4 128 40s-14 60-30 92-62 52-98 24S-14 60 44 14z" fill="var(--amarelo)"/></svg>
+  <div class="wrap reserva__in">
+    <h2 class="reveal">Seu lugar <em>está esperando.</em></h2>
+    <p class="lead reveal">Escolha o dia, reúna sua companhia e venha viver o Nosso Quintal.</p>
+    <a class="btn btn--amarelo btn--lg reveal" data-link="reserva" href="#reservas" target="_blank" rel="noopener">Reserve sua mesa</a>
+    <p class="reserva__nota" id="reserva-nota"></p>
+  </div>
+</section>
+
+<!-- ============ DELIVERY ============ -->
+<section class="sec delivery" id="delivery">
+  <div class="wrap delivery__in">
+    <h2 class="reveal">Hoje o quintal <em>vai até você.</em></h2>
+    <p class="lead reveal">Alguns sabores da casa também chegam pelo delivery.</p>
+    <a class="btn btn--rosa reveal" data-link="ifood" href="#delivery" target="_blank" rel="noopener">Pedir pelo iFood</a>
+  </div>
+</section>
+
+<!-- ============ DEPOIMENTOS ============ -->
+<section class="sec dep" id="depoimentos">
+  <div class="wrap">
+    <p class="eyebrow reveal">Avaliações</p>
+    <h2 class="reveal">Quem vem, <em>conta.</em></h2>
+    <div class="dep__grid" id="dep-grid"></div>
+  </div>
+</section>
+
+<!-- ============ GALERIA ============ -->
+<section class="sec gal" id="galeria">
+  <div class="wrap">
+    <p class="eyebrow eyebrow--light reveal">Galeria</p>
+    <h2 class="reveal">Momentos do <em>Nosso Quintal.</em></h2>
+  </div>
+  <div class="gal__feed">
+    <figure class="slot g1 reveal" style="--r:4/5"><img src="images/galeria/nosso-quintal-galeria-01.webp" alt="Momento no Nosso Quintal" loading="lazy" onerror="this.remove()"><span class="slot__ph" aria-hidden="true"><b>Foto</b><i>images/galeria/nosso-quintal-galeria-01.webp</i></span></figure>
+    <figure class="slot g2 reveal" style="--r:1/1"><img src="images/galeria/nosso-quintal-galeria-02.webp" alt="Momento no Nosso Quintal" loading="lazy" onerror="this.remove()"><span class="slot__ph" aria-hidden="true"><b>Foto</b><i>images/galeria/nosso-quintal-galeria-02.webp</i></span></figure>
+    <figure class="slot g3 reveal" style="--r:3/2"><img src="images/galeria/nosso-quintal-galeria-03.webp" alt="Momento no Nosso Quintal" loading="lazy" onerror="this.remove()"><span class="slot__ph" aria-hidden="true"><b>Foto</b><i>images/galeria/nosso-quintal-galeria-03.webp</i></span></figure>
+    <figure class="slot g4 reveal" style="--r:4/5"><img src="images/galeria/nosso-quintal-galeria-04.webp" alt="Momento no Nosso Quintal" loading="lazy" onerror="this.remove()"><span class="slot__ph" aria-hidden="true"><b>Foto</b><i>images/galeria/nosso-quintal-galeria-04.webp</i></span></figure>
+    <figure class="slot g5 reveal" style="--r:1/1"><img src="images/galeria/nosso-quintal-galeria-05.webp" alt="Momento no Nosso Quintal" loading="lazy" onerror="this.remove()"><span class="slot__ph" aria-hidden="true"><b>Foto</b><i>images/galeria/nosso-quintal-galeria-05.webp</i></span></figure>
+    <figure class="slot g6 reveal" style="--r:3/4"><img src="images/galeria/nosso-quintal-galeria-06.webp" alt="Momento no Nosso Quintal" loading="lazy" onerror="this.remove()"><span class="slot__ph" aria-hidden="true"><b>Foto</b><i>images/galeria/nosso-quintal-galeria-06.webp</i></span></figure>
+  </div>
+  <p class="wrap gal__ig"><a class="link-light" data-link="instagram" href="#galeria" target="_blank" rel="noopener">Mais momentos no Instagram @nossoquintallimeira →</a></p>
+</section>
+
+<!-- ============ LOCALIZAÇÃO + HORÁRIOS ============ -->
+<section class="sec loc" id="contato">
+  <div class="wrap loc__grid">
+    <div>
+      <p class="eyebrow reveal">Localização</p>
+      <h2 class="reveal">Vem pro <em>nosso quintal.</em></h2>
+      <address class="reveal">Av. Piracicaba, 294<br>Vila São João<br>Limeira - SP</address>
+      <a class="btn btn--roxo reveal" data-link="maps" href="#contato" target="_blank" rel="noopener">Como chegar</a>
+      <div class="horarios reveal">
+        <h3>Horários</h3>
+        <dl id="horarios"></dl>
+        <p class="horarios__nota" id="horarios-nota"></p>
+      </div>
+    </div>
+    <div class="mapa reveal">
+      <iframe title="Mapa: Nosso Quintal, Av. Piracicaba, 294, Limeira" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        src="https://www.google.com/maps?q=Av.+Piracicaba,+294,+Vila+S%C3%A3o+Jo%C3%A3o,+Limeira+-+SP&output=embed"></iframe>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot">
+  <div class="wrap foot__grid">
+    <div>
+      <p class="foot__brand">Nosso<br>Quintal</p>
+      <p class="foot__tag">Um lugar para comer, ouvir, encontrar e ficar.</p>
+      <address>Av. Piracicaba, 294<br>Vila São João · Limeira - SP</address>
+    </div>
+    <nav aria-label="Rodapé">
+      <h3>Navegue</h3>
+      <a href="#inicio">Início</a><a href="#historia">Nossa história</a><a href="#cardapio">Cardápio</a><a href="#destaques">Destaques</a>
+      <a href="#ambiente">Ambiente</a><a href="#musica">Música</a><a href="#reservas">Reservas</a><a href="#contato">Localização</a>
+    </nav>
+    <nav aria-label="Contato">
+      <h3>Contato</h3>
+      <a data-link="instagram" href="#" target="_blank" rel="noopener">Instagram</a>
+      <a data-link="reserva" href="#" target="_blank" rel="noopener">WhatsApp</a>
+      <a data-link="ifood" href="#" target="_blank" rel="noopener">iFood</a>
+      <a data-link="spotify" href="#" target="_blank" rel="noopener">Spotify</a>
+      <a data-link="maps" href="#" target="_blank" rel="noopener">Google Maps</a>
+    </nav>
+  </div>
+  <p class="foot__copy wrap">© Nosso Quintal · Limeira, SP</p>
+</footer>
+
+<script src="assets/js/content.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
